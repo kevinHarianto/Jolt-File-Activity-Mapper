@@ -4,3 +4,4 @@ The goal is to create a web-based file mapper for easier insight into file activ
 The output being Threat Indicators, Attack Chain, File Activity Listing and Network Activity.
 I would gladly appreciate any recommendations in making this tool more useful to help simplify obtaining file activity insights.
 <img width="1400" height="925" alt="image" src="https://github.com/user-attachments/assets/7e2fbb45-b0e4-4b63-a83a-ef1d98486d17" />
+<img width="935" height="852" alt="image" src="https://github.com/user-attachments/assets/0a81056b-3582-4b12-8016-c94d09d1db22" />
