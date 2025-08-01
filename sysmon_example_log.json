@@ -1,0 +1,140 @@
+[
+    {
+      "EventID": 1,
+      "UtcTime": "2024-01-15 14:22:15.123",
+      "ProcessId": 1234,
+      "ParentProcessId": 1,
+      "Image": "C:\\Windows\\System32\\explorer.exe",
+      "CommandLine": "explorer.exe",
+      "User": "DOMAIN\\[REDACTED_USER]"
+    },
+    {
+      "EventID": 1,
+      "UtcTime": "2024-01-15 14:22:20.456",
+      "ProcessId": 5678,
+      "ParentProcessId": 1234,
+      "Image": "C:\\Users\\[REDACTED_USER]\\AppData\\Local\\Temp\\Adobe_Flash_Player_Update.exe",
+      "CommandLine": "Adobe_Flash_Player_Update.exe /silent /install",
+      "User": "DOMAIN\\[REDACTED_USER]"
+    },
+    {
+      "EventID": 7,
+      "UtcTime": "2024-01-15 14:22:21.789",
+      "ProcessId": 5678,
+      "Image": "C:\\Users\\[REDACTED_USER]\\AppData\\Local\\Temp\\Adobe_Flash_Player_Update.exe",
+      "ImageLoaded": "C:\\Windows\\System32\\kernel32.dll",
+      "User": "DOMAIN\\[REDACTED_USER]"
+    },
+    {
+      "EventID": 13,
+      "UtcTime": "2024-01-15 14:22:30.111",
+      "ProcessId": 5678,
+      "Image": "C:\\Users\\[REDACTED_USER]\\AppData\\Local\\Temp\\Adobe_Flash_Player_Update.exe",
+      "TargetObject": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\WindowsService",
+      "NewValue": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\WindowsService.exe",
+      "Details": "REG_SZ",
+      "User": "DOMAIN\\[REDACTED_USER]"
+    },
+    {
+      "EventID": 11,
+      "UtcTime": "2024-01-15 14:22:35.222",
+      "ProcessId": 5678,
+      "Image": "C:\\Users\\[REDACTED_USER]\\AppData\\Local\\Temp\\Adobe_Flash_Player_Update.exe",
+      "TargetFilename": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\WindowsService.exe",
+      "CreationUtcTime": "2024-01-15 14:22:35.222",
+      "User": "DOMAIN\\[REDACTED_USER]"
+    },
+    {
+      "EventID": 1,
+      "UtcTime": "2024-01-15 14:22:40.333",
+      "ProcessId": 6789,
+      "ParentProcessId": 5678,
+      "Image": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\WindowsService.exe",
+      "CommandLine": "WindowsService.exe --start",
+      "User": "NT AUTHORITY\\SYSTEM"
+    },
+    {
+      "EventID": 3,
+      "UtcTime": "2024-01-15 14:22:50.444",
+      "ProcessId": 6789,
+      "Image": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\WindowsService.exe",
+      "SourceIp": "192.168.1.100",
+      "SourcePort": 12345,
+      "DestinationIp": "18.212.123.45",
+      "DestinationPort": 443,
+      "Protocol": "TCP",
+      "Initiated": true,
+      "User": "NT AUTHORITY\\SYSTEM"
+    },
+    {
+      "EventID": 22,
+      "UtcTime": "2024-01-15 14:23:00.555",
+      "ProcessId": 6789,
+      "Image": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\WindowsService.exe",
+      "QueryName": "malicious-c2.evilcorp.com",
+      "QueryResults": "18.212.123.45",
+      "QueryStatus": "SUCCESS",
+      "User": "NT AUTHORITY\\SYSTEM"
+    },
+    {
+      "EventID": 1,
+      "UtcTime": "2024-01-15 14:23:10.666",
+      "ProcessId": 7890,
+      "ParentProcessId": 6789,
+      "Image": "C:\\Windows\\System32\\cmd.exe",
+      "CommandLine": "cmd.exe /c net user evil_user /add",
+      "User": "NT AUTHORITY\\SYSTEM"
+    },
+    {
+      "EventID": 1,
+      "UtcTime": "2024-01-15 14:23:20.777",
+      "ProcessId": 8000,
+      "ParentProcessId": 6789,
+      "Image": "C:\\Windows\\System32\\lsass.exe",
+      "CommandLine": "lsass.exe",
+      "User": "NT AUTHORITY\\SYSTEM"
+    },
+    {
+      "EventID": 3,
+      "UtcTime": "2024-01-15 14:24:00.888",
+      "ProcessId": 9012,
+      "Image": "C:\\Windows\\System32\\powershell.exe",
+      "SourceIp": "192.168.1.100",
+      "SourcePort": 54321,
+      "DestinationIp": "192.168.1.101",
+      "DestinationPort": 445,
+      "Protocol": "TCP",
+      "Initiated": true,
+      "User": "DOMAIN\\[REDACTED_USER]"
+    },
+    {
+      "EventID": 11,
+      "UtcTime": "2024-01-15 14:24:30.999",
+      "ProcessId": 55555,
+      "Image": "C:\\Windows\\System32\\powershell.exe",
+      "TargetFilename": "C:\\Users\\[REDACTED_USER]\\AppData\\Local\\Temp\\exfiltration_data.zip",
+      "CreationUtcTime": "2024-01-15 14:24:30.999",
+      "User": "DOMAIN\\[REDACTED_USER]"
+    },
+    {
+      "EventID": 3,
+      "UtcTime": "2024-01-15 14:24:50.456",
+      "ProcessId": 55555,
+      "Image": "C:\\Windows\\System32\\powershell.exe",
+      "SourceIp": "192.168.1.100",
+      "SourcePort": 54324,
+      "DestinationIp": "185.199.108.153",
+      "DestinationPort": 443,
+      "Protocol": "TCP",
+      "Initiated": true,
+      "User": "DOMAIN\\[REDACTED_USER]"
+    },
+    {
+      "EventID": 23,
+      "UtcTime": "2024-01-15 14:25:00.789",
+      "ProcessId": 5678,
+      "Image": "C:\\Users\\[REDACTED_USER]\\AppData\\Local\\Temp\\Adobe_Flash_Player_Update.exe",
+      "TargetFilename": "C:\\Windows\\Prefetch\\ADOBE_FLASH_PLAYER_UPDATE.EXE-B0F6E6C9.pf",
+      "User": "NT AUTHORITY\\SYSTEM"
+    }
+  ]

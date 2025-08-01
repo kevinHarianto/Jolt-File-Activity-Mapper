@@ -1,0 +1,400 @@
+[
+  {
+    "@timestamp": "2024-01-15T14:22:15.123Z",
+    "event": {
+      "kind": "event",
+      "category": "process",
+      "type": "start",
+      "dataset": "microsoft.defender"
+    },
+    "process": {
+      "pid": 1234,
+      "parent": {
+        "pid": 1
+      },
+      "name": "explorer.exe",
+      "args": ["explorer.exe"]
+    },
+    "user": {
+      "name": "DOMAIN\\UserA"
+    },
+    "winlog": {
+      "event_id": 4688,
+      "task": "Process Creation"
+    }
+  },
+  {
+    "@timestamp": "2024-01-15T14:22:20.456Z",
+    "event": {
+      "kind": "event",
+      "category": "process",
+      "type": "start",
+      "dataset": "microsoft.defender"
+    },
+    "process": {
+      "pid": 5678,
+      "parent": {
+        "pid": 1234,
+        "name": "explorer.exe"
+      },
+      "name": "Adobe_Flash_Player_Update.exe",
+      "args": ["Adobe_Flash_Player_Update.exe", "/silent", "/install"]
+    },
+    "user": {
+      "name": "DOMAIN\\UserA"
+    },
+    "winlog": {
+      "event_id": 4688,
+      "task": "Process Creation"
+    }
+  },
+  {
+    "@timestamp": "2024-01-15T14:22:30.111Z",
+    "event": {
+      "kind": "event",
+      "category": "registry",
+      "type": "change",
+      "dataset": "microsoft.defender"
+    },
+    "process": {
+      "pid": 5678,
+      "name": "Adobe_Flash_Player_Update.exe"
+    },
+    "registry": {
+      "key": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+      "value": "WindowsService",
+      "data": {
+        "bytes": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\WindowsService.exe"
+      }
+    },
+    "user": {
+      "name": "DOMAIN\\UserA"
+    },
+    "winlog": {
+      "event_id": 4657,
+      "task": "Registry Value Set"
+    }
+  },
+  {
+    "@timestamp": "2024-01-15T14:22:35.222Z",
+    "event": {
+      "kind": "event",
+      "category": "file",
+      "type": "creation",
+      "dataset": "microsoft.defender"
+    },
+    "process": {
+      "pid": 5678,
+      "name": "Adobe_Flash_Player_Update.exe"
+    },
+    "file": {
+      "name": "WindowsService.exe",
+      "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\WindowsService.exe",
+      "directory": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"
+    },
+    "user": {
+      "name": "DOMAIN\\UserA"
+    },
+    "winlog": {
+      "event_id": 4663,
+      "task": "File System"
+    }
+  },
+  {
+    "@timestamp": "2024-01-15T14:22:40.333Z",
+    "event": {
+      "kind": "event",
+      "category": "process",
+      "type": "start",
+      "dataset": "microsoft.defender"
+    },
+    "process": {
+      "pid": 6789,
+      "parent": {
+        "pid": 5678,
+        "name": "Adobe_Flash_Player_Update.exe"
+      },
+      "name": "WindowsService.exe",
+      "args": ["WindowsService.exe", "--start"]
+    },
+    "user": {
+      "name": "NT AUTHORITY\\SYSTEM"
+    },
+    "winlog": {
+      "event_id": 4688,
+      "task": "Process Creation"
+    }
+  },
+  {
+    "@timestamp": "2024-01-15T14:22:50.444Z",
+    "event": {
+      "kind": "event",
+      "category": "network",
+      "type": "connection",
+      "dataset": "microsoft.defender"
+    },
+    "process": {
+      "pid": 6789,
+      "name": "WindowsService.exe"
+    },
+    "source": {
+      "ip": "192.168.1.100",
+      "port": 12345
+    },
+    "destination": {
+      "ip": "18.212.123.45",
+      "port": 443
+    },
+    "network": {
+      "transport": "tcp",
+      "protocol": "https"
+    },
+    "user": {
+      "name": "NT AUTHORITY\\SYSTEM"
+    },
+    "winlog": {
+      "event_id": 5156,
+      "task": "Filtering Platform Connection"
+    }
+  },
+  {
+    "@timestamp": "2024-01-15T14:23:00.555Z",
+    "event": {
+      "kind": "event",
+      "category": "network",
+      "type": "dns_query",
+      "dataset": "microsoft.defender"
+    },
+    "process": {
+      "pid": 6789,
+      "name": "WindowsService.exe"
+    },
+    "dns": {
+      "question": {
+        "name": "malicious-c2.evilcorp.com",
+        "type": "A"
+      },
+      "answers": [
+        {
+          "data": "18.212.123.45",
+          "type": "A"
+        }
+      ],
+      "response_code": "NOERROR"
+    },
+    "user": {
+      "name": "NT AUTHORITY\\SYSTEM"
+    },
+    "winlog": {
+      "event_id": 5156,
+      "task": "Filtering Platform Connection"
+    }
+  },
+  {
+    "@timestamp": "2024-01-15T14:23:05.000Z",
+    "event": {
+      "kind": "alert",
+      "category": "malware",
+      "type": "detection",
+      "dataset": "microsoft.defender",
+      "severity": "high"
+    },
+    "threat": {
+      "name": "Backdoor:Win32/CoinMiner"
+    },
+    "file": {
+      "name": "WindowsService.exe",
+      "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\WindowsService.exe",
+      "directory": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"
+    },
+    "user": {
+      "name": "NT AUTHORITY\\SYSTEM"
+    }
+  },
+  {
+    "@timestamp": "2024-01-15T14:23:10.666Z",
+    "event": {
+      "kind": "event",
+      "category": "process",
+      "type": "start",
+      "dataset": "microsoft.defender"
+    },
+    "process": {
+      "pid": 7890,
+      "parent": {
+        "pid": 6789,
+        "name": "WindowsService.exe"
+      },
+      "name": "cmd.exe",
+      "args": ["cmd.exe", "/c", "net", "user", "evil_user", "/add"]
+    },
+    "user": {
+      "name": "NT AUTHORITY\\SYSTEM"
+    },
+    "winlog": {
+      "event_id": 4688,
+      "task": "Process Creation"
+    }
+  },
+  {
+    "@timestamp": "2024-01-15T14:23:20.777Z",
+    "event": {
+      "kind": "event",
+      "category": "process",
+      "type": "start",
+      "dataset": "microsoft.defender"
+    },
+    "process": {
+      "pid": 8000,
+      "parent": {
+        "pid": 6789,
+        "name": "WindowsService.exe"
+      },
+      "name": "lsass.exe",
+      "args": ["lsass.exe"]
+    },
+    "user": {
+      "name": "NT AUTHORITY\\SYSTEM"
+    },
+    "winlog": {
+      "event_id": 4688,
+      "task": "Process Creation"
+    }
+  },
+  {
+    "@timestamp": "2024-01-15T14:23:25.000Z",
+    "event": {
+      "kind": "alert",
+      "category": "credential_access",
+      "type": "detection",
+      "dataset": "microsoft.defender",
+      "severity": "critical"
+    },
+    "threat": {
+      "name": "CredentialAccess:LSASSRead"
+    },
+    "file": {
+      "name": "lsass.exe"
+    },
+    "process": {
+      "name": "malicious_tool.exe"
+    },
+    "user": {
+      "name": "NT AUTHORITY\\SYSTEM"
+    }
+  },
+  {
+    "@timestamp": "2024-01-15T14:24:00.888Z",
+    "event": {
+      "kind": "event",
+      "category": "network",
+      "type": "connection",
+      "dataset": "microsoft.defender"
+    },
+    "process": {
+      "pid": 9012,
+      "name": "powershell.exe"
+    },
+    "source": {
+      "ip": "192.168.1.100",
+      "port": 54321
+    },
+    "destination": {
+      "ip": "192.168.1.101",
+      "port": 445
+    },
+    "network": {
+      "transport": "tcp",
+      "protocol": "smb"
+    },
+    "user": {
+      "name": "DOMAIN\\UserA"
+    },
+    "winlog": {
+      "event_id": 5156,
+      "task": "Filtering Platform Connection"
+    }
+  },
+  {
+    "@timestamp": "2024-01-15T14:24:30.999Z",
+    "event": {
+      "kind": "event",
+      "category": "file",
+      "type": "creation",
+      "dataset": "microsoft.defender"
+    },
+    "process": {
+      "pid": 55555,
+      "name": "powershell.exe"
+    },
+    "file": {
+      "name": "exfiltration_data.zip",
+      "path": "C:\\Users\\UserA\\AppData\\Local\\Temp\\exfiltration_data.zip",
+      "directory": "C:\\Users\\UserA\\AppData\\Local\\Temp"
+    },
+    "user": {
+      "name": "DOMAIN\\UserA"
+    },
+    "winlog": {
+      "event_id": 4663,
+      "task": "File System"
+    }
+  },
+  {
+    "@timestamp": "2024-01-15T14:24:50.456Z",
+    "event": {
+      "kind": "event",
+      "category": "network",
+      "type": "connection",
+      "dataset": "microsoft.defender"
+    },
+    "process": {
+      "pid": 55555,
+      "name": "powershell.exe"
+    },
+    "source": {
+      "ip": "192.168.1.100",
+      "port": 54324
+    },
+    "destination": {
+      "ip": "185.199.108.153",
+      "port": 443
+    },
+    "network": {
+      "transport": "tcp",
+      "protocol": "https"
+    },
+    "user": {
+      "name": "DOMAIN\\UserA"
+    },
+    "winlog": {
+      "event_id": 5156,
+      "task": "Filtering Platform Connection"
+    }
+  },
+  {
+    "@timestamp": "2024-01-15T14:25:00.789Z",
+    "event": {
+      "kind": "event",
+      "category": "file",
+      "type": "deletion",
+      "dataset": "microsoft.defender"
+    },
+    "process": {
+      "pid": 5678,
+      "name": "Adobe_Flash_Player_Update.exe"
+    },
+    "file": {
+      "name": "ADOBE_FLASH_PLAYER_UPDATE.EXE-B0F6E6C9.pf",
+      "path": "C:\\Windows\\Prefetch\\ADOBE_FLASH_PLAYER_UPDATE.EXE-B0F6E6C9.pf",
+      "directory": "C:\\Windows\\Prefetch"
+    },
+    "user": {
+      "name": "NT AUTHORITY\\SYSTEM"
+    },
+    "winlog": {
+      "event_id": 4663,
+      "task": "File System"
+    }
+  }
+]

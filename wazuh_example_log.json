@@ -1,0 +1,36 @@
+[
+    {
+      "timestamp": "2024-07-29T10:06:20Z",
+      "agent": {
+        "id": "002",
+        "name": "server_prod"
+      },
+      "rule": {
+        "level": 7,
+        "description": "File integrity monitoring event - suspicious modification.",
+        "id": "550"
+      },
+      "predecoder": {
+        "program_name": "syscheck"
+      },
+      "data": {
+        "audit": {
+          "event": {
+            "action": "modified",
+            "file": "/etc/passwd",
+            "md5_after": "newmd5hash",
+            "md5_before": "oldmd5hash",
+            "size_after": 1234,
+            "size_before": 1000,
+            "user": "root",
+            "process": {
+              "name": "vim",
+              "pid": 9876,
+              "ppid": 5432
+            }
+          }
+        }
+      },
+      "full_log": "Wazuh: File '/etc/passwd' modified by root. PID: 9876."
+    }
+  ]

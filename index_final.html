@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jolt - Advanced Security Log Analysis & Visualization</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-section p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #555;
+            padding-top: 2rem;
+            opacity: 0.7;
+        }
+
+        /* New styles for analysis output */
+        #analysisOutput {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 15px;
+            margin-top: 40px;
+            color: #333;
+            text-align: left;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        #analysisOutput h3 {
+            color: #667eea;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        #analysisOutput ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        #analysisOutput ul li {
+            background: #f8f9fa;
+            margin-bottom: 8px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        #analysisOutput .alert-high {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        #analysisOutput .alert-medium {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        #analysisOutput .alert-low {
+            color: #28a745;
+        }
+
+        /* Styles for new format selection buttons */
+        .format-selection {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .format-selection button {
+            background-color: #f0f2f5;
+            color: #333;
+            border: 1px solid #ddd;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            min-width: 120px;
+        }
+        .format-selection button:hover {
+            background-color: #e2e6eb;
+            border-color: #c9d2da;
+        }
+        .format-selection button.active {
+            background-color: #667eea;
+            color: white;
+            border-color: #667eea;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+        }
+        #selectedFormatDisplay {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #667eea;
+            min-height: 25px; /* To prevent layout shift */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Jolt</div>
+                
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Transform File Activities Into Visual Insights</h1>
+            <p>Drag and drop your security logs right below to instantly visualize threats, understand attack chains, and inspect file activity listings. All processing is done locally in your browser.</p>
+        </div>
+    </section>
+
+    <section class="features" style="background: #f9f9f9;">
+        <div class="container" style="text-align:center;">
+            <h2>Select Log Type & Drop Your Logs Here</h2>
+            <p style="max-width: 800px; margin: 0 auto 2rem;">
+                First, select the type of logs you are analyzing (Sysmon, Defender, ELK Stack, or Wazuh). Then, drag and drop your files for instant analysis. All processing is done locally in your browser, ensuring your data remains private.
+            </p>
+
+            <div class="format-selection">
+                <button data-format="sysmon" id="btnSysmon">Sysmon</button>
+                <button data-format="defender" id="btnDefender">Defender</button>
+                <button data-format="elk" id="btnElk">ELK Stack</button>
+                <button data-format="wazuh" id="btnWazuh">Wazuh</button>
+                <div id="selectedFormatDisplay"></div>
+            </div>
+
+            <div id="dropzone" style="border: 2px dashed #667eea; padding: 60px 20px; border-radius: 15px; background: white; color: #555; cursor: pointer;">
+                <strong>Drop files here</strong>
+            </div>
+            <div id="analysisOutput" style="display: none;">
+                <h2>Analysis Results</h2>
+                <div id="threatIndicatorsOutput"></div>
+                <div id="attackChainOutput"></div>
+                <div id="fileActivityOutput"></div>
+                <div id="networkActivityOutput"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include all the new parser scripts -->
+    <script src="sysmon-parser.js"></script>
+    <script src="defender-parser.js"></script>
+    <script src="elk-parser.js"></script>
+    <script src="wazuh-parser.js"></script>
+
+    <script>
+        const dropzone = document.getElementById('dropzone');
+        const analysisOutput = document.getElementById('analysisOutput');
+        const threatIndicatorsOutput = document.getElementById('threatIndicatorsOutput');
+        const attackChainOutput = document.getElementById('attackChainOutput');
+        const fileActivityOutput = document.getElementById('fileActivityOutput');
+        const networkActivityOutput = document.getElementById('networkActivityOutput');
+
+        const formatButtons = document.querySelectorAll('.format-selection button');
+        const selectedFormatDisplay = document.getElementById('selectedFormatDisplay');
+        let selectedFormat = null; // Variable to store the selected format
+
+        // Event listeners for format selection buttons
+        formatButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove 'active' class from all buttons
+                formatButtons.forEach(btn => btn.classList.remove('active'));
+
+                // Add 'active' class to the clicked button
+                button.classList.add('active');
+
+                // Set the selected format
+                selectedFormat = button.dataset.format;
+                selectedFormatDisplay.textContent = `Selected Log Type: ${button.textContent}`;
+                console.log(`Log format selected: ${selectedFormat}`);
+            });
+        });
+
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.style.background = '#e6eafc';
+        });
+
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.style.background = 'white';
+        });
+
+        dropzone.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            dropzone.style.background = 'white';
+            analysisOutput.style.display = 'block'; // Show output area
+
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    let formatToUse = selectedFormat; // Start with selected format
+
+                    // If no button was clicked, fall back to file name detection
+                    if (!formatToUse) {
+                        formatToUse = detectFormat(file.name);
+                        console.log(`No format button selected. Falling back to detected format: ${formatToUse}`);
+                    } else {
+                        console.log(`Using selected format: ${formatToUse} for file: ${file.name}`);
+                    }
+                    
+                    let parser;
+                    // Instantiate the correct parser class based on the format
+                    switch(formatToUse) {
+                        case 'defender':
+                            parser = new DefenderLogParser();
+                            break;
+                        case 'sysmon':
+                            parser = new SysmonLogParser();
+                            break;
+                        case 'elk':
+                            parser = new ElkLogParser();
+                            break;
+                        case 'wazuh':
+                            parser = new WazuhLogParser();
+                            break;
+                        default:
+                            console.warn(`Unknown format "${formatToUse}", defaulting to Sysmon.`);
+                            parser = new SysmonLogParser();
+                            formatToUse = 'sysmon'; // Correct the format to match the default parser
+                    }
+
+
+                    try {
+                        const parsedData = await parser.parseLogs([file], formatToUse);
+                        displayAnalysis(parsedData);
+                    } catch (error) {
+                        console.error("Error parsing file:", error);
+                        analysisOutput.innerHTML = `<p style="color: red;">Error parsing file ${file.name}: ${error.message}</p>`;
+                    }
+                }
+            }
+        });
+
+        // Function to detect log format based on file name or content hints
+        // This function acts as a fallback if no format button is explicitly selected.
+        function detectFormat(fileName) {
+            const lower = fileName.toLowerCase();
+            if (lower.includes('defender')) return 'defender';
+            if (lower.includes('wazuh')) return 'wazuh';
+            if (lower.includes('sysmon')) return 'sysmon'; // Check for explicit sysmon first
+            if (lower.includes('elk') || lower.endsWith('.json')) return 'elk'; // Prioritize ELK if 'elk' is in filename or if it's a generic JSON
+            if (lower.endsWith('.evtx')) return 'sysmon'; // .evtx is typically Sysmon
+            return 'sysmon'; // default fallback for other file types
+        }
+
+        function displayAnalysis(data) {
+            console.log("Parsed Data for Display:", data);
+
+            // Display Threat Indicators
+            let threatHtml = '<h3>Threat Indicators</h3><ul>';
+            if (data.aptPatterns && data.aptPatterns.threatIndicators && data.aptPatterns.threatIndicators.length > 0) {
+                data.aptPatterns.threatIndicators.forEach(indicator => {
+                    const severityClass = indicator.severity ? `alert-${indicator.severity.toLowerCase()}` : '';
+                    // Check if indicator is an object or string
+                    if (typeof indicator === 'object') {
+                        threatHtml += `<li class="${severityClass}"><strong>${indicator.threatName || 'N/A'}:</strong> ${indicator.description || 'N/A'} (Process: ${indicator.processName || 'N/A'})</li>`;
+                    } else {
+                        // Fallback for string indicators from older mock data or simpler logs
+                        threatHtml += `<li class="${severityClass}">${indicator}</li>`;
+                    }
+                });
+            } else {
+                threatHtml += '<li>No threat indicators found.</li>';
+            }
+            threatIndicatorsOutput.innerHTML = threatHtml + '</ul>';
+
+            // Display Attack Chain - MODIFIED TO USE UNORDERED LIST
+            let attackChainHtml = '<h3>Attack Chain</h3><ul>'; // Changed from <ol> to <ul>
+            if (data.aptPatterns && data.aptPatterns.attackChain && data.aptPatterns.attackChain.length > 0) {
+                data.aptPatterns.attackChain.forEach(step => {
+                    attackChainHtml += `<li>${step}</li>`;
+                });
+            } else {
+                attackChainHtml += '<li>No attack chain identified.</li>';
+            }
+            attackChainOutput.innerHTML = attackChainHtml + '</ul>'; // Changed from </ol> to </ul>
+
+            // Display File Activity Listing
+            let fileActivityHtml = '<h3>File Activity Listing</h3><ul>';
+            if (data.fileMap && data.fileMap.fileActivities && data.fileMap.fileActivities.length > 0) {
+                data.fileMap.fileActivities.forEach(activity => {
+                    // Use activity.process directly as it's correctly populated in the parser
+                    fileActivityHtml += `<li><strong>${activity.filePath}:</strong> ${activity.action || activity.activityType} (Process: ${activity.process || 'N/A'}) (User: ${activity.user || 'N/A'})</li>`;
+                });
+            } else {
+                fileActivityHtml += '<li>No significant file activities recorded.</li>';
+            }
+            fileActivityOutput.innerHTML = fileActivityHtml + '</ul>';
+
+            // Display Network Activity (simplified)
+            let networkActivityHtml = '<h3>Network Activity</h3><ul>';
+            let hasNetworkActivity = false;
+
+            if (data.networkMap && data.networkMap.connections && data.networkMap.connections.length > 0) {
+                data.networkMap.connections.forEach(conn => {
+                    // Use conn.process directly as it's correctly populated in the parser
+                    networkActivityHtml += `<li><strong>Connection:</strong> ${conn.sourceIp || 'N/A'}:${conn.sourcePort || 'N/A'} -> ${conn.destinationIp || 'N/A'}:${conn.destinationPort || 'N/A'} (Protocol: ${conn.protocol || 'N/A'}, Process: ${conn.process || 'N/A'})</li>`;
+                });
+                hasNetworkActivity = true;
+            }
+            if (data.networkMap && data.networkMap.dnsQueries && data.networkMap.dnsQueries.length > 0) {
+                data.networkMap.dnsQueries.slice(0, 5).forEach(dns => {
+                    // Use dns.process directly as it's correctly populated in the parser
+                    networkActivityHtml += `<li><strong>DNS Query:</strong> ${dns.queryName || 'N/A'} -> ${dns.queryResults || 'N/A'} (Process: ${dns.process || 'N/A'})</li>`;
+                });
+                hasNetworkActivity = true;
+            }
+
+            if (!hasNetworkActivity) {
+                networkActivityHtml += '<li>No network activities recorded.</li>';
+            }
+            networkActivityOutput.innerHTML = networkActivityHtml + '</ul>';
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>

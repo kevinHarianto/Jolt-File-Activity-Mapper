@@ -1,0 +1,148 @@
+[
+  {
+    "TimeGenerated": "2024-01-15T14:22:15.123Z",
+    "EventType": "ProcessCreated",
+    "InitiatingProcessId": 1234,
+    "InitiatingProcessParentId": 1,
+    "InitiatingProcessFileName": "explorer.exe",
+    "InitiatingProcessCommandLine": "explorer.exe",
+    "UserName": "DOMAIN\\UserA"
+  },
+  {
+    "TimeGenerated": "2024-01-15T14:22:20.456Z",
+    "EventType": "ProcessCreated",
+    "InitiatingProcessId": 5678,
+    "InitiatingProcessParentId": 1234,
+    "InitiatingProcessFileName": "Adobe_Flash_Player_Update.exe",
+    "InitiatingProcessCommandLine": "Adobe_Flash_Player_Update.exe /silent /install",
+    "UserName": "DOMAIN\\UserA"
+  },
+  {
+    "TimeGenerated": "2024-01-15T14:22:30.111Z",
+    "EventType": "RegistryValueSet",
+    "InitiatingProcessId": 5678,
+    "InitiatingProcessFileName": "Adobe_Flash_Player_Update.exe",
+    "RegistryKey": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+    "RegistryValueName": "WindowsService",
+    "RegistryValueData": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\WindowsService.exe",
+    "UserName": "DOMAIN\\UserA"
+  },
+  {
+    "TimeGenerated": "2024-01-15T14:22:35.222Z",
+    "EventType": "FileCreated",
+    "InitiatingProcessId": 5678,
+    "InitiatingProcessFileName": "Adobe_Flash_Player_Update.exe",
+    "FileName": "WindowsService.exe",
+    "FolderPath": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup",
+    "UserName": "DOMAIN\\UserA"
+  },
+  {
+    "TimeGenerated": "2024-01-15T14:22:40.333Z",
+    "EventType": "ProcessCreated",
+    "InitiatingProcessId": 6789,
+    "InitiatingProcessParentId": 5678,
+    "InitiatingProcessFileName": "WindowsService.exe",
+    "InitiatingProcessCommandLine": "WindowsService.exe --start",
+    "UserName": "NT AUTHORITY\\SYSTEM"
+  },
+  {
+    "TimeGenerated": "2024-01-15T14:22:50.444Z",
+    "EventType": "NetworkConnection",
+    "InitiatingProcessId": 6789,
+    "InitiatingProcessFileName": "WindowsService.exe",
+    "SourceIp": "192.168.1.100",
+    "SourcePort": 12345,
+    "DestinationIp": "18.212.123.45",
+    "DestinationPort": 443,
+    "Protocol": "TCP",
+    "UserName": "NT AUTHORITY\\SYSTEM"
+  },
+  {
+    "TimeGenerated": "2024-01-15T14:23:00.555Z",
+    "EventType": "DnsQuery",
+    "InitiatingProcessId": 6789,
+    "InitiatingProcessFileName": "WindowsService.exe",
+    "QueryName": "malicious-c2.evilcorp.com",
+    "QueryResults": "18.212.123.45",
+    "QueryStatus": "SUCCESS",
+    "UserName": "NT AUTHORITY\\SYSTEM"
+  },
+  {
+    "TimeGenerated": "2024-01-15T14:23:05.000Z",
+    "EventType": "Detection",
+    "ThreatName": "Backdoor:Win32/CoinMiner",
+    "Severity": "High",
+    "FileName": "WindowsService.exe",
+    "FolderPath": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup",
+    "UserName": "NT AUTHORITY\\SYSTEM"
+  },
+  {
+    "TimeGenerated": "2024-01-15T14:23:10.666Z",
+    "EventType": "ProcessCreated",
+    "InitiatingProcessId": 7890,
+    "InitiatingProcessParentId": 6789,
+    "InitiatingProcessFileName": "cmd.exe",
+    "InitiatingProcessCommandLine": "cmd.exe /c net user evil_user /add",
+    "UserName": "NT AUTHORITY\\SYSTEM"
+  },
+  {
+    "TimeGenerated": "2024-01-15T14:23:20.777Z",
+    "EventType": "ProcessCreated",
+    "InitiatingProcessId": 8000,
+    "InitiatingProcessParentId": 6789,
+    "InitiatingProcessFileName": "lsass.exe",
+    "InitiatingProcessCommandLine": "lsass.exe",
+    "UserName": "NT AUTHORITY\\SYSTEM"
+  },
+  {
+    "TimeGenerated": "2024-01-15T14:23:25.000Z",
+    "EventType": "Detection",
+    "ThreatName": "CredentialAccess:LSASSRead",
+    "Severity": "Critical",
+    "FileName": "lsass.exe",
+    "InitiatingProcessFileName": "malicious_tool.exe",
+    "UserName": "NT AUTHORITY\\SYSTEM"
+  },
+  {
+    "TimeGenerated": "2024-01-15T14:24:00.888Z",
+    "EventType": "NetworkConnection",
+    "InitiatingProcessId": 9012,
+    "InitiatingProcessFileName": "powershell.exe",
+    "SourceIp": "192.168.1.100",
+    "SourcePort": 54321,
+    "DestinationIp": "192.168.1.101",
+    "DestinationPort": 445,
+    "Protocol": "TCP",
+    "UserName": "DOMAIN\\UserA"
+  },
+  {
+    "TimeGenerated": "2024-01-15T14:24:30.999Z",
+    "EventType": "FileCreated",
+    "InitiatingProcessId": 55555,
+    "InitiatingProcessFileName": "powershell.exe",
+    "FileName": "exfiltration_data.zip",
+    "FolderPath": "C:\\Users\\UserA\\AppData\\Local\\Temp",
+    "UserName": "DOMAIN\\UserA"
+  },
+  {
+    "TimeGenerated": "2024-01-15T14:24:50.456Z",
+    "EventType": "NetworkConnection",
+    "InitiatingProcessId": 55555,
+    "InitiatingProcessFileName": "powershell.exe",
+    "SourceIp": "192.168.1.100",
+    "SourcePort": 54324,
+    "DestinationIp": "185.199.108.153",
+    "DestinationPort": 443,
+    "Protocol": "TCP",
+    "UserName": "DOMAIN\\UserA"
+  },
+  {
+    "TimeGenerated": "2024-01-15T14:25:00.789Z",
+    "EventType": "FileDeleted",
+    "InitiatingProcessId": 5678,
+    "InitiatingProcessFileName": "Adobe_Flash_Player_Update.exe",
+    "FileName": "ADOBE_FLASH_PLAYER_UPDATE.EXE-B0F6E6C9.pf",
+    "FolderPath": "C:\\Windows\\Prefetch",
+    "UserName": "NT AUTHORITY\\SYSTEM"
+  }
+]
